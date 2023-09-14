@@ -61,7 +61,7 @@ addProductsRouter.put('/product/edit/:id', async (req, res) => {
     return res.status(200).json(updateProduct)
   } catch (error) {
     console.log(error)
-    return res.status(500).json({message: "Internal Server Error - 1"})
+    return res.status(500).json({message: "Internal Server Error"})
   }
 })
 
