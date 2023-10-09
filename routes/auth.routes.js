@@ -3,11 +3,11 @@ import bcrypt from 'bcryptjs'
 import User from '../models/User.model.js'
 import 'dotenv/config'
 import jwt from 'jsonwebtoken'
-//import isAuthenticatedMiddleware from '../middlewares/isAuthenticatedMiddleware.js'
+import isAuthenticatedMiddleware from '../middlewares/isAuthenticatedMiddleware.js'
 
 const authRouter = Router()
 
-authRouter.post('/auth/sign-up/user', async (req, res) => {
+authRouter.post('/auth/sign-up/user', isAuthenticatedMiddleware, async (req, res) => {
   const {name, level, password, department, comments, dob, phoneNumber, position, startingDate, emergencyContact, currentStatus} = req.body
 
   try {
@@ -33,13 +33,13 @@ authRouter.post('/auth/sign-up/user', async (req, res) => {
   }
 })
 
-authRouter.get('/user/:id', async (req, res) => {
+authRouter.get('/user/:id', isAuthenticatedMiddleware, async (req, res) => {
   try {
     const {id} = req.params
     const userId = await User.findById(id).select({passwordHash: 0})
 
     if (!userId) {
-      return res.status(404).json({message: "Usernot found"})
+      return res.status(404).json({message: "User not found"})
     }
     return res.status(200).json(userId)
   } catch (error) {
@@ -61,7 +61,7 @@ authRouter.put('/user/edit/:id', async (req, res) => {
   }
 })
 
-authRouter.delete('/user/:id', async (req, res) => {
+authRouter.delete('/user/:id', isAuthenticatedMiddleware, async (req, res) => {
   const {id} = req.params
   try {
     await User.findByIdAndDelete({_id: id})
@@ -87,7 +87,7 @@ authRouter.post('/auth/login', async (req, res) => {
     }
 
     const expiresIn = 86400
-    const secret = 'hauhUGUANjsdhuwhsnjhbaUQB4545454AWJBj'
+    const secret = process.env.JWT_SECRET
 
     const token = jwt.sign({ id: user._id, name: user.name}, secret, {expiresIn})
     return res.status(200).json({ user: { id: user._id, name, level: user.level}, logged: true, jwt: token})

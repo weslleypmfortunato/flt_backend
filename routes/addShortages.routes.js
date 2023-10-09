@@ -1,9 +1,10 @@
 import { Router } from "express"
 import Shortages from '../models/Shortages.model.js'
+import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.js"
 
 const addShortagesRouter = Router()
 
-addShortagesRouter.post('/shortages', async (req, res) => {
+addShortagesRouter.post('/shortages', isAuthenticatedMiddleware, async (req, res) => {
   const {materialName, materialQty, shortageRemark} = req.body
 
   try {
@@ -18,7 +19,7 @@ addShortagesRouter.post('/shortages', async (req, res) => {
   }
 })
 
-addShortagesRouter.get('/shortages', async (req, res) => {
+addShortagesRouter.get('/shortages', isAuthenticatedMiddleware, async (req, res) => {
   try {
     const shortageList = await Shortages.find().sort({materialName: 1})
     return res.status(200).json(shortageList)
@@ -28,7 +29,7 @@ addShortagesRouter.get('/shortages', async (req, res) => {
   }
 })
 
-addShortagesRouter.get('/shortage/:id', async (req, res) => {
+addShortagesRouter.get('/shortage/:id', isAuthenticatedMiddleware, async (req, res) => {
   try {
     const {id} = req.params
     const shortageId = await Shortages.findById(id)
@@ -43,7 +44,7 @@ addShortagesRouter.get('/shortage/:id', async (req, res) => {
   }
 })
 
-addShortagesRouter.put('/shortage/edit/:id', async (req, res) => {
+addShortagesRouter.put('/shortage/edit/:id', isAuthenticatedMiddleware, async (req, res) => {
   try {
     const payload = req.body
     const {id} = req.params
@@ -56,7 +57,7 @@ addShortagesRouter.put('/shortage/edit/:id', async (req, res) => {
   }
 })
 
-addShortagesRouter.delete('/shortage/:id', async (req, res) => {
+addShortagesRouter.delete('/shortage/:id', isAuthenticatedMiddleware, async (req, res) => {
   const {id} = req.params
   try {
     await Shortages.findByIdAndDelete({_id: id})

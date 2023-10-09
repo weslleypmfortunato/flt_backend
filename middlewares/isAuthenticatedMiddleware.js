@@ -9,11 +9,11 @@ const getTokemFronHeaders = req => {
   return null
 }
 
-const isAuthentivatedMiddleware = (req, res, next) => {
+const isAuthenticatedMiddleware = (req, res, next) => {
   const token = getTokemFronHeaders(req)
 
   if (!token) {
-    return res.status(401).json({message: "Unauthorized -1"})
+    return res.status(401).json({message: "Unauthorized 1"})
   }
 
   try {
@@ -22,8 +22,8 @@ const isAuthentivatedMiddleware = (req, res, next) => {
     req.user = decodedToken
     next()
   } catch (error) {
-    return res.status(401).json({message: "Unathorized 2"})
+    return res.status(401).json({message: "Unauthorized 2"})
   }
 }
 
-export default isAuthentivatedMiddleware
+export default isAuthenticatedMiddleware

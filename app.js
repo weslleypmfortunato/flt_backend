@@ -5,7 +5,7 @@ import connectDB from "./config/db.connection.js"
 import employeesListRouter from "./routes/employeesList.routes.js"
 import addOrdersRouter from "./routes/addOrders.routes.js"
 import authRouter from "./routes/auth.routes.js"
-import addShortagesRouter from "./routes/addShortages.route.js"
+import addShortagesRouter from "./routes/addShortages.routes.js"
 
 const app = express()
 connectDB()

@@ -1,9 +1,11 @@
 import { Router } from "express";
 import Orders from '../models/Orders.model.js'
+import 'dotenv/config'
+import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.js"
 
 const addOrdersRouter = Router()
 
-addOrdersRouter.post('/orders', async (req, res) => {
+addOrdersRouter.post('/orders', isAuthenticatedMiddleware, async (req, res) => {
   const {workOrderNumber, productName, productDescription, orderQty, priority, owner, remarks} = req.body
 
   try {
@@ -19,7 +21,7 @@ addOrdersRouter.post('/orders', async (req, res) => {
   }
 })
 
-addOrdersRouter.get('/orders', async (req, res) => {
+addOrdersRouter.get('/orders', isAuthenticatedMiddleware, async (req, res) => {
   try {
     const workOrdersList = await Orders.find().sort({priority: 1})
     return res.status(200).json(workOrdersList)
@@ -29,7 +31,7 @@ addOrdersRouter.get('/orders', async (req, res) => {
   }
 })
 
-addOrdersRouter.get('/order/:id', async (req, res) => {
+addOrdersRouter.get('/order/:id', isAuthenticatedMiddleware, async (req, res) => {
   try {
     const {id} = req.params
     const workOrderId = await Orders.findById(id)
@@ -44,7 +46,7 @@ addOrdersRouter.get('/order/:id', async (req, res) => {
   }
 })
 
-addOrdersRouter.put('/order/edit/:id', async (req, res) => {
+addOrdersRouter.put('/order/edit/:id', isAuthenticatedMiddleware, async (req, res) => {
   try {
     const payload = req.body
     const {id} = req.params
@@ -57,7 +59,7 @@ addOrdersRouter.put('/order/edit/:id', async (req, res) => {
   }
 })
 
-addOrdersRouter.delete('/order/:id', async (req, res) => {
+addOrdersRouter.delete('/order/:id', isAuthenticatedMiddleware, async (req, res) => {
   const {id} = req.params
   try {
     await Orders.findByIdAndDelete({_id: id})
