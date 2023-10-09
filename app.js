@@ -3,9 +3,9 @@ import cors from 'cors'
 import express from 'express'
 import connectDB from "./config/db.connection.js"
 import employeesListRouter from "./routes/employeesList.routes.js"
-import addProductsRouter from "./routes/addProduct.routes.js"
+import addOrdersRouter from "./routes/addOrders.routes.js"
 import authRouter from "./routes/auth.routes.js"
-import bomRouter from "./routes/productBom.routes.js"
+import addShortagesRouter from "./routes/addShortages.route.js"
 
 const app = express()
 connectDB()
@@ -21,8 +21,8 @@ app.use((req, res, next) => {
 app.use(express.json())
 app.use(authRouter)
 app.use(employeesListRouter)
-app.use(addProductsRouter)
-app.use(bomRouter)
+app.use(addOrdersRouter)
+app.use(addShortagesRouter)
 
 
 app.get('/test', (req, res) => {
