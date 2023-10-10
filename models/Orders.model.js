@@ -16,7 +16,7 @@ const orderSchema = new Schema({
     required: true
   },
   orderQty: {
-    type: Number,
+    type: String,
     required: true
   },
   priority: {

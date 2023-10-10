@@ -4,7 +4,7 @@ import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.
 
 const addShortagesRouter = Router()
 
-addShortagesRouter.post('/shortages', isAuthenticatedMiddleware, async (req, res) => {
+addShortagesRouter.post('/shortages/new', isAuthenticatedMiddleware, async (req, res) => {
   const {materialName, materialQty, shortageRemark} = req.body
 
   try {
@@ -44,7 +44,7 @@ addShortagesRouter.get('/shortage/:id', isAuthenticatedMiddleware, async (req, r
   }
 })
 
-addShortagesRouter.put('/shortage/edit/:id', isAuthenticatedMiddleware, async (req, res) => {
+addShortagesRouter.put('/shortage/edit/:id', async (req, res) => {
   try {
     const payload = req.body
     const {id} = req.params
