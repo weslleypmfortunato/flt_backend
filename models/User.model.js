@@ -29,10 +29,10 @@ const userSchema = new Schema({
   },
   startingDate: String,
   emergencyContact: String,
-  currentStatus: {
-    type: Boolean,
-    default: true
-  }
+  // currentStatus: {
+  //   type: Boolean,
+  //   default: true
+  // }
 }, {timestamps: true})
 
 export default model ('User', userSchema)

@@ -8,7 +8,7 @@ const employeesListRouter = Router()
 employeesListRouter.get('/users', isAuthenticatedMiddleware, async (req, res) => {
 
   try {
-    const employeesList = await User.find({currentStatus: false}).sort({name: 1}).select({passwordHash: 0})
+    const employeesList = await User.find().sort({name: 1}).select({passwordHash: 0})
     return res.status(200).json(employeesList)
   } catch (error) {
     console.log(error)
@@ -16,7 +16,7 @@ employeesListRouter.get('/users', isAuthenticatedMiddleware, async (req, res) =>
   }
 })
 
-employeesListRouter.get('/former-emplyees', isAuthenticatedMiddleware, async (req, res) => {
+employeesListRouter.get('/former-employees', isAuthenticatedMiddleware, async (req, res) => {
 
   try {
     const formerEmployeeList = await User.find({currentStatus: true}).sort({name: 1}).select({passwordHash: 0})
