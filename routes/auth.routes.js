@@ -7,7 +7,7 @@ import isAuthenticatedMiddleware from '../middlewares/isAuthenticatedMiddleware.
 
 const authRouter = Router()
 
-authRouter.post('/auth/sign-up/user', async (req, res) => {
+authRouter.post('/auth/sign-up/user', isAuthenticatedMiddleware, async (req, res) => {
   const {name, level, password, department, comments, dob, phoneNumber, position, startingDate, emergencyContact} = req.body
 
   try {
