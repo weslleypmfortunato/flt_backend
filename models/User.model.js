@@ -18,21 +18,17 @@ const userSchema = new Schema({
   },
   department: {
     type: String,
-    enum: ["production", "engineering", "sales", "hr", "marketing", "warehouse", "finance"]
+    enum: ["production", "warehouse"]
   },
   comments: String,
-  dob: String,
+  dob: Date,
   phoneNumber: String,
   position: {
     type: String,
     required: true
   },
-  startingDate: String,
+  startingDate: Date,
   emergencyContact: String,
-  // currentStatus: {
-  //   type: Boolean,
-  //   default: true
-  // }
 }, {timestamps: true})
 
 export default model ('User', userSchema)

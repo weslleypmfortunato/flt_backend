@@ -11,6 +11,7 @@ const shortagesSchema = new Schema({
     type: Number,
     required: true
   },
+  dueDate: Date,
   shortageRemark: String
 }, {timestamps: true})
 

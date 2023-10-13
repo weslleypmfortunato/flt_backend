@@ -5,10 +5,10 @@ import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.
 const addShortagesRouter = Router()
 
 addShortagesRouter.post('/shortages/new', isAuthenticatedMiddleware, async (req, res) => {
-  const {materialName, materialQty, shortageRemark} = req.body
+  const {materialName, materialQty, dueDate, shortageRemark} = req.body
 
   try {
-    const newShortage = await Shortages.create({materialName, materialQty, shortageRemark})
+    const newShortage = await Shortages.create({materialName, materialQty, dueDate, shortageRemark})
 
     if (newShortage) {
       return res.status(201).json({message: "Material added to shortage list succesfully"})
