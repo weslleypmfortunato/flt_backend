@@ -6,6 +6,7 @@ import employeesListRouter from "./routes/employeesList.routes.js"
 import addOrdersRouter from "./routes/addOrders.routes.js"
 import authRouter from "./routes/auth.routes.js"
 import addShortagesRouter from "./routes/addShortages.routes.js"
+import addNoticesRouter from "./routes/addNotices.routes.js"
 
 const app = express()
 connectDB()
@@ -23,6 +24,7 @@ app.use(authRouter)
 app.use(employeesListRouter)
 app.use(addOrdersRouter)
 app.use(addShortagesRouter)
+app.use(addNoticesRouter)
 
 
 app.get('/test', (req, res) => {
@@ -30,11 +32,3 @@ app.get('/test', (req, res) => {
 }) 
 
 app.listen(process.env.PORT || 3001, () => console.log('Server listening on port: ', process.env.PORT || 3001))
-
-
-
-
-//LDAKKK7M8B6UIWWy
-
-
-//mongodb+srv://weslleypmfortunato:LDAKKK7M8B6UIWWy@weslley-projects.8olwiig.mongodb.net/?retryWrites=true&w=majority

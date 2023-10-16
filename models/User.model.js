@@ -9,7 +9,7 @@ const userSchema = new Schema({
   },
   level: {
     type: String,
-    enum: ["admin", "user"],
+    enum: ["admin", "user", "organizer"],
     required: true
   },
   passwordHash: {
