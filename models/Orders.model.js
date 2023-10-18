@@ -24,8 +24,7 @@ const orderSchema = new Schema({
     enum: ["In Progress", "Partially Completed", "Completed", "Missing Parts", ""]
   },
   priority: {
-    type: Number,
-    default: 100
+    type: Number
   },
   owner: String,
   remarks: String
