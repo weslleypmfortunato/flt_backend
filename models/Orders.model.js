@@ -21,7 +21,7 @@ const orderSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["In Progress", "Partially Completed", "Completed", "Missing Parts", ""]
+    enum: ["In Progress", "Partially Completed", "Completed", "Missing Parts", "Expedite", ""]
   },
   priority: {
     type: Number
