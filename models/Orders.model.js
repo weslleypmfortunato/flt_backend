@@ -27,7 +27,12 @@ const orderSchema = new Schema({
     type: Number
   },
   owner: String,
-  remarks: String
+  remarks: String,
+  deleteStatus: {
+    type: Boolean,
+    default: false
+  },
+  orderLink: String
 }, {timestamps: true})
 
 export default model ('Orders', orderSchema)
