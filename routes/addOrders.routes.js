@@ -70,4 +70,22 @@ addOrdersRouter.delete('/order/:id', isAuthenticatedMiddleware, async (req, res)
   }
 })
 
+addOrdersRouter.put('/order/updateDeleteStatus/:id', isAuthenticatedMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { deleteStatus } = req.body;
+
+    const updatedOrder = await Orders.findByIdAndUpdate(id, { deleteStatus }, { new: true });
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Work Order not found." });
+    }
+
+    return res.status(200).json(updatedOrder);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+})
+
 export default addOrdersRouter
