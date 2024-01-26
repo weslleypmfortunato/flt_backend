@@ -7,6 +7,7 @@ import addOrdersRouter from "./routes/addOrders.routes.js"
 import authRouter from "./routes/auth.routes.js"
 import addShortagesRouter from "./routes/addShortages.routes.js"
 import addNoticesRouter from "./routes/addNotices.routes.js"
+import addNCRRouter from "./routes/addNCR.routes.js"
 
 const app = express()
 connectDB()
@@ -25,6 +26,7 @@ app.use(employeesListRouter)
 app.use(addOrdersRouter)
 app.use(addShortagesRouter)
 app.use(addNoticesRouter)
+app.use(addNCRRouter)
 
 
 app.get('/test', (req, res) => {
