@@ -19,6 +19,7 @@ const ncrSchema = new Schema({
     type: String,
     required: true
   },
+  ncrDate: Date,
   description: {
     type: String,
     required: true

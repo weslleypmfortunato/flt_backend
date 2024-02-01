@@ -6,10 +6,10 @@ import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.
 const addNCRRouter = Router()
 
 addNCRRouter.post('/ncr/new', isAuthenticatedMiddleware, async (req, res) => {
-  const { title, reference, creator, location, description } = req.body
+  const { title, reference, creator, location, description, ncrDate } = req.body
 
   try {
-    const newNCR = await NCR.create({ title, reference, creator, location, description })
+    const newNCR = await NCR.create({ title, reference, creator, location, description, ncrDate })
 
     if (newNCR) {
       return res.status(201).json({message: "NCR created succesfully"})
