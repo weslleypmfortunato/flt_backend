@@ -23,12 +23,13 @@ const orderSchema = new Schema({
     type: String,
     enum: ["In Progress", "Partially Completed", "Completed", "Missing Parts", "Expedite", ""]
   },
-  priority: {
-    type: Number
-  },
   materialStatus: {
     type: String,
-    enum: ["Yes", "No", "Partially", "Shortage", ""]
+    enum: ["Yes", "No", "Partially", "Shortage", ""],
+    required: true
+  },
+  priority: {
+    type: Number
   },
   owner: String,
   remarks: String,
