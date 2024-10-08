@@ -6,11 +6,11 @@ import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.
 const addOrdersRouter = Router()
 
 addOrdersRouter.post('/orders/new', isAuthenticatedMiddleware, async (req, res) => {
-  const {workOrderNumber, productName, productDescription, orderQty, priority, owner, status, materialStatus, remarks, deleteStatus, orderLink} = req.body
+  const {workOrderNumber, productName, productDescription, orderQty, priority, owner, status, material, remarks, deleteStatus, orderLink} = req.body
 
   try {
 
-    const newOrder = await Orders.create({ workOrderNumber, productName, productDescription, orderQty, priority, owner, status, materialStatus, remarks, deleteStatus, orderLink })
+    const newOrder = await Orders.create({ workOrderNumber, productName, productDescription, orderQty, priority, owner, status, material, remarks, deleteStatus, orderLink })
 
 
     if (newOrder) {

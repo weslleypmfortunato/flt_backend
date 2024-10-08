@@ -23,8 +23,8 @@ const orderSchema = new Schema({
     type: String,
     enum: ["In Progress", "Partially Completed", "Completed", "Missing Parts", "Expedite", ""]
   },
-  materialStatus: String,
-  //materialStatus: {
+  material: String,
+  //material: {
     //type: String,
     //enum: ["Yes", "No", "Partially", "Shortage", ""]
   //},
