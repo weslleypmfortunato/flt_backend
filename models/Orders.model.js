@@ -26,6 +26,10 @@ const orderSchema = new Schema({
   priority: {
     type: Number
   },
+  materialStatus: {
+    type: String,
+    enum: ["Yes", "No", "Partially", "Shortage", ""]
+  },
   owner: String,
   remarks: String,
   deleteStatus: {
