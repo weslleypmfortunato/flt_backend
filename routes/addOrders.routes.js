@@ -6,18 +6,18 @@ import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.
 const addOrdersRouter = Router()
 
 addOrdersRouter.post('/orders/new', isAuthenticatedMiddleware, async (req, res) => {
-  const {workOrderNumber, productName, productDescription, orderQty, priority, owner, status, remarks, deleteStatus, orderLink, materialStatus} = req.body
+  const {workOrderNumber, productName, productDescription, orderQty, priority, owner, status, materialStatus, remarks, deleteStatus, orderLink} = req.body
 
   try {
 
-    const newOrder = await Orders.create({ workOrderNumber, productName, productDescription, orderQty, priority, owner, status, remarks, deleteStatus, orderLink, materialStatus })
+    const newOrder = await Orders.create({ workOrderNumber, productName, productDescription, orderQty, priority, owner, status, materialStatus, remarks, deleteStatus, orderLink })
 
     if (newOrder) {
-      return res.status(201).json({message: "Order placed succesfully"})
+      return res.status(201).json({message: "Order placed succesfully!"})
     }
   } catch (error) {
     console.log(error)
-    return res.status(500).json({message: "Internal Server Error"})
+    return res.status(500).json({message: "Internal Server Error!"})
   }
 })
 
