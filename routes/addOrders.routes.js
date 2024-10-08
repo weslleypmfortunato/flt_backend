@@ -27,7 +27,7 @@ addOrdersRouter.get('/orders', isAuthenticatedMiddleware, async (req, res) => {
     return res.status(200).json(workOrdersList)
   } catch (error) {
     console.log(error)
-    return res.status(500).json({message: "Internal Server Error"})
+    return res.status(500).json({message: "Internal Server Error!"})
   }
 })
 
