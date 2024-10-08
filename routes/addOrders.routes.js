@@ -12,6 +12,8 @@ addOrdersRouter.post('/orders/new', isAuthenticatedMiddleware, async (req, res) 
 
     const newOrder = await Orders.create({ workOrderNumber, productName, productDescription, orderQty, priority, owner, status, materialStatus, remarks, deleteStatus, orderLink })
 
+    console.log("Material Status:", materialStatus);
+
     if (newOrder) {
       return res.status(201).json({message: "Order placed succesfully!"})
     }
