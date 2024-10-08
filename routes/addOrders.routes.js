@@ -5,7 +5,9 @@ import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.
 
 const addOrdersRouter = Router()
 
-addOrdersRouter.post('/orders/new', isAuthenticatedMiddleware, async (req, res) => {
+// addOrdersRouter.post('/orders/new', isAuthenticatedMiddleware, async (req, res) => {
+  addOrdersRouter.post('/orders/new', async (req, res) => {
+  console.log("Requisição recebida para criar uma nova ordem")
   const {workOrderNumber, productName, productDescription, orderQty, priority, owner, status, materialStatus, remarks, deleteStatus, orderLink} = req.body
 
   try {
