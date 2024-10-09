@@ -1,7 +1,6 @@
 import { Router } from "express";
-import Wo from '../models/WO.model.js'
 //import Wo from '../models/WO.model.js'
-//import Orders from '../models/Orders.model.js'
+import Orders from '../models/Orders.model.js'
 import 'dotenv/config'
 import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.js"
 
@@ -12,7 +11,7 @@ addOrdersRouter.post('/orders/new', isAuthenticatedMiddleware, async (req, res) 
 
   try {
 
-    const newOrder = await Wo.create({ workOrderNumber, productName, productDescription, orderQty, priority, owner, status, material, remarks, deleteStatus, orderLink })
+    const newOrder = await Orders.create({ workOrderNumber, productName, productDescription, orderQty, priority, owner, status, material, remarks, deleteStatus, orderLink })
 
 
     if (newOrder) {
@@ -26,7 +25,7 @@ addOrdersRouter.post('/orders/new', isAuthenticatedMiddleware, async (req, res) 
 
 addOrdersRouter.get('/orders', isAuthenticatedMiddleware, async (req, res) => {
   try {
-    const workOrdersList = await Wo.find().sort({priority: 1})
+    const workOrdersList = await Orders.find().sort({priority: 1})
     return res.status(200).json(workOrdersList)
   } catch (error) {
     console.log(error)
@@ -37,7 +36,7 @@ addOrdersRouter.get('/orders', isAuthenticatedMiddleware, async (req, res) => {
 addOrdersRouter.get('/order/:id', isAuthenticatedMiddleware, async (req, res) => {
   try {
     const {id} = req.params
-    const workOrderId = await Wo.findById(id)
+    const workOrderId = await Orders.findById(id)
 
     if (!workOrderId) {
       return res.status(404).json({message: "Work Order not found."})
@@ -54,7 +53,7 @@ addOrdersRouter.put('/order/edit/:id', async (req, res) => {
     const payload = req.body
     const {id} = req.params
 
-    const updateWorkOrder = await Wo.findByIdAndUpdate({_id: id}, payload, {new: true})
+    const updateWorkOrder = await Orders.findByIdAndUpdate({_id: id}, payload, {new: true})
     return res.status(200).json(updateWorkOrder)
   } catch (error) {
     console.log(error)
@@ -65,7 +64,7 @@ addOrdersRouter.put('/order/edit/:id', async (req, res) => {
 addOrdersRouter.delete('/order/:id', isAuthenticatedMiddleware, async (req, res) => {
   const {id} = req.params
   try {
-    await Wo.findByIdAndDelete({_id: id})
+    await Orders.findByIdAndDelete({_id: id})
     return res.status(204).json({message: "Work Order deleted succesfully"})
   } catch (error) {
     console.log(error)
@@ -78,7 +77,7 @@ addOrdersRouter.put('/order/updateDeleteStatus/:id', isAuthenticatedMiddleware, 
     const { id } = req.params
     const { deleteStatus } = req.body
 
-    const updatedOrder = await Wo.findByIdAndUpdate(id, { deleteStatus }, { new: true })
+    const updatedOrder = await Orders.findByIdAndUpdate(id, { deleteStatus }, { new: true })
     if (!updatedOrder) {
       return res.status(404).json({ message: "Work Order not found." })
     }
@@ -91,7 +90,7 @@ addOrdersRouter.put('/order/updateDeleteStatus/:id', isAuthenticatedMiddleware, 
 
 addOrdersRouter.get('/completed/orders', isAuthenticatedMiddleware, async (req, res) => {
   try {
-    const completedWorkOrdersList = await Wo.find().sort({updatedAt: -1})
+    const completedWorkOrdersList = await Orders.find().sort({updatedAt: -1})
     return res.status(200).json(completedWorkOrdersList)
   } catch (error) {
     console.log(error)
