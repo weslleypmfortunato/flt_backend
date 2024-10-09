@@ -1,6 +1,6 @@
 import { Router } from "express";
 //import Orders from '../models/Orders.model.js'
-import NewOrders from "../models/newOrders.model.js"
+import NewOrders from '..models/NewOrders.model.js'
 import 'dotenv/config'
 import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.js"
 
