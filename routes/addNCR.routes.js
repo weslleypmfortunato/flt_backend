@@ -23,7 +23,8 @@ addNCRRouter.post('/ncr/new', isAuthenticatedMiddleware, async (req, res) => {
 addNCRRouter.get('/ncr', isAuthenticatedMiddleware, async (req, res) => {
 
   try {
-    const ncrList = await NCR.find().sort({priority: 1})
+    // const ncrList = await NCR.find().sort({priority: 1})
+    const ncrList = await NCR.find().sort({ncrDate: -1})
     return res.status(200).json(ncrList)
   } catch (error) {
     console.log(error)
