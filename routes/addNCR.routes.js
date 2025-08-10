@@ -5,41 +5,18 @@ import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.
 
 const addNCRRouter = Router()
 
-// addNCRRouter.post('/ncr/new', isAuthenticatedMiddleware, async (req, res) => {
-//   const { title, reference, creator, location, description, ncrDate, causeOfNcr, closeOutDate, reasonForClosure, latestDisposition, closer } = req.body
-
-//   try {
-//     const newNCR = await NCR.create({ title, reference, creator, location, description, ncrDate, causeOfNcr, closeOutDate, reasonForClosure, latestDisposition, closer })
-
-//     if (newNCR) {
-//       return res.status(201).json({message: "NCR created succesfully"})
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     return res.status(500).json({message: "Internal server error"})
-//   }
-// })
-
-addNCRRouter.post('/auth/sign-up/first-user', async (req, res) => {
-  const {name, level, password, department, comments, dob, phoneNumber, position, startingDate, emergencyContact} = req.body
+addNCRRouter.post('/ncr/new', isAuthenticatedMiddleware, async (req, res) => {
+  const { title, reference, creator, location, description, ncrDate, causeOfNcr, closeOutDate, reasonForClosure, latestDisposition, closer } = req.body
 
   try {
-    const userCount = await User.countDocuments()
-    if (userCount > 0) {
-      return res.status(403).json({message: 'First user already created'})
-    }
+    const newNCR = await NCR.create({ title, reference, creator, location, description, ncrDate, causeOfNcr, closeOutDate, reasonForClosure, latestDisposition, closer })
 
-    const salt = bcrypt.genSaltSync(+process.env.SALT_ROUNDS)
-    const passwordHash = bcrypt.hashSync(password, salt)
-
-    const newUser = await User.create({name, level, passwordHash, department, comments, dob, phoneNumber, position, startingDate, emergencyContact})
-
-    if (newUser) {
-      return res.status(201).json({message: "First user created successfully"})
+    if (newNCR) {
+      return res.status(201).json({message: "NCR created succesfully"})
     }
   } catch (error) {
     console.log(error)
-    return res.status(500).json({message: "Internal Server Error"})
+    return res.status(500).json({message: "Internal server error"})
   }
 })
 

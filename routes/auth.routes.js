@@ -7,28 +7,51 @@ import isAuthenticatedMiddleware from '../middlewares/isAuthenticatedMiddleware.
 
 const authRouter = Router()
 
-authRouter.post('/auth/sign-up/user', isAuthenticatedMiddleware, async (req, res) => {
+// authRouter.post('/auth/sign-up/user', isAuthenticatedMiddleware, async (req, res) => {
+//   const {name, level, password, department, comments, dob, phoneNumber, position, startingDate, emergencyContact} = req.body
+
+//   try {
+//     const userExists = await User.findOne({name})
+//     if (userExists) {
+//       throw new Error('Employee name already registered')
+//     }
+//     const salt = bcrypt.genSaltSync(+process.env.SALT_ROUNDS)
+//     const passwordHash = bcrypt.hashSync(password, salt)
+
+//     const newUser = await User.create({name, level, passwordHash, department, comments, dob, phoneNumber, position, startingDate, emergencyContact})
+
+//     if (newUser) {
+//       return res.status(201).json({message: "User create succesfully"})
+//     }
+//   } catch (error) {
+//     console.log(error)
+
+//     if (error.message === 'Employee name already registered') {
+//       return res.status(409).json({message: "Check inputted data"})
+//     }
+//     return res.status(500).json({message: "Internal Server Error"})
+//   }
+// })
+
+authRouter.post('/auth/sign-up/first-user', async (req, res) => {
   const {name, level, password, department, comments, dob, phoneNumber, position, startingDate, emergencyContact} = req.body
 
   try {
-    const userExists = await User.findOne({name})
-    if (userExists) {
-      throw new Error('Employee name already registered')
+    const userCount = await User.countDocuments()
+    if (userCount > 0) {
+      return res.status(403).json({message: 'First user already created'})
     }
+
     const salt = bcrypt.genSaltSync(+process.env.SALT_ROUNDS)
     const passwordHash = bcrypt.hashSync(password, salt)
 
     const newUser = await User.create({name, level, passwordHash, department, comments, dob, phoneNumber, position, startingDate, emergencyContact})
 
     if (newUser) {
-      return res.status(201).json({message: "User create succesfully"})
+      return res.status(201).json({message: "First user created successfully"})
     }
   } catch (error) {
     console.log(error)
-
-    if (error.message === 'Employee name already registered') {
-      return res.status(409).json({message: "Check inputted data"})
-    }
     return res.status(500).json({message: "Internal Server Error"})
   }
 })
